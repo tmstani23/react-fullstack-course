@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import './styles/styles.css';
 
 import Header from './components/header';
 import NewsList from './components/news_list';

@@ -9,11 +9,12 @@ header {
 
 .logo {
     color: #fff;
-    font-family: "Anton";
-    
+    font-size: 40px;
+    font-family: Anton;
 }
 
 header input {
-    font-size: 14px;
+    font-size: 20px;
     margin: 0px;
+    font-family: DM Mono;
 }
