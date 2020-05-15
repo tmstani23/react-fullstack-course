@@ -24,46 +24,50 @@ import React, {Component} from 'react';
 class Header extends Component {
 
     state = {
-        title: 'The keywords are: ',
         keywords: '',
-        count: 0
+        active: false,
     }
 
-    //logs pasted input value to console
-    inputPaste(event) {
-        console.log(event.clipboardData.getData('text'));
-    }
+    
 
     //adds input value to keywords on change
     inputChange(event) {
         //console.log(event.target.value);
+
+        //check if input has been entered and update active status in state if true
+        const isInputActive = event.target.value === '' ? false : true;
+
         this.setState({
-            keywords: event.target.value
+            keywords: event.target.value,
+            active: isInputActive,
         })
     }
-    //Add one to counter
-    addOne() {
-        this.setState({count: this.state.count + 1})
-    }
+    
 
     render() {
+        
+        let dynamicStyle = {
+            background: 'red'
+        }
+        
 
         return (
-            <header>
+            <header 
+                style={{
+                    background: `${this.state.active === true
+                        ? 'blue' 
+                        : 'red'
+                    }`
+                }}
+            >
                 <div className='logo' onClick={() => console.log("I was clicked")}>
                     Logo
                 </div>
                 <input 
                     onChange = {(event) => this.inputChange(event)}
-                    // calling onChange = inputChange() will call the function directly when the render happens not onChange
-                    // onPaste = {(event) => this.inputPaste(event)}
-                    onPaste = {(event) => this.inputPaste(event)}
+                    // calling onChange = inputChange() will call the function directly when the render happens not onChange 
                 />
-                <div>{this.state.title}</div>
                 <div>{this.state.keywords}</div>
-                <br />
-                <div>Count: {this.state.count}</div>
-                <div onClick = { () => this.addOne()}>Add one</div>
 
             </header>
         )
