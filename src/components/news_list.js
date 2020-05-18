@@ -1,10 +1,10 @@
-import React, { Fragment, Children } from 'react';
+import React, { Fragment } from 'react';
 import NewsItem from './news_item'
 
 const NewsList = (props) => {
     
     //can use destructuring on props to return only needed items
-    let {news, children} = props;
+    let {news} = props;
     
 
     const newsMap = news.map((item, i) => 
@@ -17,7 +17,7 @@ const NewsList = (props) => {
         
         <Fragment>
             {newsMap}
-            {children}
+            {/* {props.children} */}
             
         </Fragment>
             
