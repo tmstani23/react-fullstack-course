@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+
+import Post from './post'
 
 
 const App = ({initialCount}) => {
@@ -20,7 +22,21 @@ const App = ({initialCount}) => {
     },
   ])
 
-  //console.log(useState);
+  //useEffect runs right after render
+    //can be used similarly to componentDidUpdate or componentDidMount
+  // useEffect(() => {
+  //   console.log(state.count, "use effect runs")
+  // }, [state]) //[state] param restricts useEffect to run only when state hook is invoked
+
+  // useEffect(() => {
+  //   console.log(posts, "use effect runs")
+  // }, [posts])
+
+  // useEffect(() => {
+  //   console.log("uE running only after mount")
+  // }, []) //Empty array means it has no dependency so will run only after mount
+
+  
   
   //hook function that decrements the count value in the hook state obj
   const subtOne = () => {
@@ -36,7 +52,7 @@ const App = ({initialCount}) => {
       name: 'super awesome new post',
       body: 'im a body with no head!'
     }
-    console.log(posts);
+    //console.log(posts);
     //Here the dispatch hook function is used.
       //It is passed the hook array of posts and the new post
       //The new post is concatenated into the posts state hook
@@ -44,6 +60,10 @@ const App = ({initialCount}) => {
       ...posts,
       newPost
     ])
+  }
+
+  const removePosts = () => {
+    setPosts([]);
   }
 
   
@@ -61,17 +81,12 @@ const App = ({initialCount}) => {
       {/* posts hook array is accessed to display post data as jsx */}
       {
         posts.map((post, i) => (
-          <div key={i}>
-            <h3>{post.name}</h3>
-            <p>{post.body}</p>
-            <hr/>
-          </div>
+          <Post item = {post} key={i}/>
         ))
       }
       {/* new post is added to the hook posts array and displayed */}
-      <button onClick={addOnePost}>
-        Add a post
-      </button>
+      <button onClick={addOnePost}>Add a post</button>
+      <button onClick={removePosts}> Remove Posts </button>
       
 
     </Fragment>
