@@ -6,6 +6,7 @@ import Home from './components/home';
 import Profile from './components/profile';
 import Posts from './components/posts';
 import PostItem from './components/post_item';
+import NotFound from './components/page_not_found';
 
 
 const App = () => {
@@ -45,7 +46,10 @@ const App = () => {
           <Route path="/posts/:id" component={PostItem} />
           <Route path="/posts" component={Posts}/>
           <Route path="/profile" component={Profile} />
-          <Route path="/" component={Home} /> 
+          {/* exact here means only render this comp at the exact route path */}
+          <Route path="/" component={Home} exact/> 
+          {/* If none of the above routes exist go to the notFound component */}
+          <Route component={NotFound} /> 
         </Switch>
         
       </div>
