@@ -1,0 +1,2 @@
+//launch json-server to host db json file
+json-server --watch db.json --port 3004
