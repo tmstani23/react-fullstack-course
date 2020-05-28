@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import Banner from './banner';
 import axios from 'axios';
-import ArtistList from './artist_list';
+import ArtistLinkList from './artist_list';
 
 const URL_ARTISTS = 'http://localhost:3004/artists';
 
@@ -26,7 +26,7 @@ class Home extends Component {
         return (
             <Fragment>
                 <Banner />
-                <ArtistList allArtists={this.state.artists} />
+                <ArtistLinkList allArtists={this.state.artists} />
             </Fragment>
         )
     }
