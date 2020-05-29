@@ -1,12 +1,13 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 //BR knows what's happening in the browser html history
 //Route knows which component to display from the history
-import {BrowserRouter, Link, NavLink, Route, Switch, Redirect} from 'react-router-dom';
+import {BrowserRouter, Link, NavLink, Route, Switch} from 'react-router-dom';
 import Home from './components/home';
 import Profile from './components/profile';
 import Posts from './components/posts';
 import PostItem from './components/post_item';
 import NotFound from './components/page_not_found';
+import Conditional from'./components/conditional';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           </NavLink> 
           <Link to='/profile' className='p-2 text-dark'>Profile page</Link> 
           <Link to='/posts' className='p-2 text-dark'>Posts page</Link> 
+          <Link to='/conditional' className='p-2 text-dark'>Conditional page</Link> 
           </nav>
         </div>
         
@@ -46,6 +48,7 @@ const App = () => {
           <Route path="/posts/:id" component={PostItem} />
           <Route path="/posts" component={Posts}/>
           <Route path="/profile" component={Profile} />
+          <Route path="/conditional" component={Conditional} />
           {/* exact here means only render this comp at the exact route path */}
           <Route path="/" component={Home} exact/> 
           {/* If none of the above routes exist go to the notFound component */}
