@@ -8,6 +8,8 @@ import Posts from './components/posts';
 import PostItem from './components/post_item';
 import NotFound from './components/page_not_found';
 import Conditional from'./components/conditional';
+import PureComp from'./components/pure_comp';
+import User from './components/user';
 
 
 const App = () => {
@@ -29,9 +31,46 @@ const App = () => {
           > 
               Home page
           </NavLink> 
-          <Link to='/profile' className='p-2 text-dark'>Profile page</Link> 
-          <Link to='/posts' className='p-2 text-dark'>Posts page</Link> 
-          <Link to='/conditional' className='p-2 text-dark'>Conditional page</Link> 
+          <NavLink 
+            to='/profile' 
+            className='p-2 text-dark'
+            activeClassName='selected'
+            activeStyle={{fontWeight: 'bold'}}
+          > 
+              Profile Page
+          </NavLink> 
+          <NavLink 
+            to='/posts' 
+            className='p-2 text-dark'
+            activeClassName='selected'
+            activeStyle={{fontWeight: 'bold'}}
+          > 
+              Post Page
+          </NavLink> 
+          <NavLink 
+            to='/pure_comp' 
+            className='p-2 text-dark'
+            activeClassName='selected'
+            activeStyle={{fontWeight: 'bold'}}
+          > 
+              Pure Comp page
+          </NavLink> 
+          <NavLink 
+            to='/conditional' 
+            className='p-2 text-dark'
+            activeClassName='selected'
+            activeStyle={{fontWeight: 'bold'}}
+          > 
+              Conditional page
+          </NavLink> 
+          <NavLink 
+            to='/user' 
+            className='p-2 text-dark'
+            activeClassName='selected'
+            activeStyle={{fontWeight: 'bold'}}
+          > 
+              User
+          </NavLink> 
           </nav>
         </div>
         
@@ -49,6 +88,8 @@ const App = () => {
           <Route path="/posts" component={Posts}/>
           <Route path="/profile" component={Profile} />
           <Route path="/conditional" component={Conditional} />
+          <Route path="/pure_comp" component={PureComp} />
+          <Route path="/user" component={User} />
           {/* exact here means only render this comp at the exact route path */}
           <Route path="/" component={Home} exact/> 
           {/* If none of the above routes exist go to the notFound component */}
