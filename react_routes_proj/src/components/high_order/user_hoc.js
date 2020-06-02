@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-//High order component that renders a background on all its child components
-const UserHoc = (props) => {
+//Component returns any component that is passed as an argument
+const UserHoc = (WrappedComponent, WrappedComponent2, arg1) => {
     
-    
-    return (
-      <div>user Hoc comp</div>
+    //When returning components the return must be a function
+    return (props) => (
+      <Fragment>
+          {/* props are available here */}
+          {arg1}
+          <WrappedComponent {...props}/>
+          <WrappedComponent2/>
+      </Fragment>
     ); 
 }
 
