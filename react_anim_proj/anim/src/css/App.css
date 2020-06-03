@@ -73,12 +73,67 @@
 /*=======================================
             TRANSITIONS BASIC 
 ========================================*/
+.square {
+  background: red;
+  height: 100px;
+  opacity: 1;
+  transition: all 1s ease
+}
 
+.square.square-entering {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.square.square-entered {
+  background: lightblue;
+}
+
+.square.square-exiting {
+  background: lightgreen;
+}
+
+.square.square-exited {
+  opacity: 0;
+  transform: translateX(-100%);
+}
 /*=======================================
                 CSSTRANSITIONS
 ========================================*/
+.square {
+  background: red;
+  height: 100px;
+  opacity: 1;
+  transition: all 1s ease
+}
+.square.false {
+  background: lightsalmon;
+  transform: translateX(-100%);
+}
+.square.true {
+  transform: translateX(0%);
+}
 
+.square-enter.square-enter-active {
+  background: lightsteelblue
+}
+.square-exit.square-exit-active {
+  background: lightgreen
+}
 /*=======================================
                 TRANSITIONS GROUP 
 ========================================*/
-
+.item {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all .5s ease-in;
+}
+.item.active,
+.item-enter.item-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.item-exit.item-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+}
