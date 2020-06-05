@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const ArtistList = ({allArtists}) => {
+const ArtistLinkList = ({allArtists}) => {
     // props are destructured into allArtists
     
     const mapArtistList = (values) => (
@@ -35,4 +35,4 @@ const ArtistList = ({allArtists}) => {
     )
 }
 
-export default ArtistList;
+export default ArtistLinkList;
