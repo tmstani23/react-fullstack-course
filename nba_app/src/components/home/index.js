@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
+import Slider from './slider';
+import Subscriptions from '../utils/subscribe';
 
 class Home extends Component {
     
-    state = []
+    state = {
+        home: ''
+    }
     
     render () {
         return (
             <>
-                Home
+                <Slider />
+                <Subscriptions />
+                Home Component
             </>
         )
     }
 }
+
+export default Home;
