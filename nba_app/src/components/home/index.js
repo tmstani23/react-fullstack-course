@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Slider from './slider';
 import Subscriptions from '../utils/subscribe';
+import HomeArticles from './articles';
+import Poll from '../utils/poll'
 
 class Home extends Component {
     
@@ -13,7 +15,11 @@ class Home extends Component {
             <>
                 <Slider />
                 <Subscriptions />
-                Home Component
+                <div className='container'>
+                    <HomeArticles />
+                </div>
+                <Poll />
+                
             </>
         )
     }

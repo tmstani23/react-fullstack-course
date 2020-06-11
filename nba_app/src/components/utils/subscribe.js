@@ -9,14 +9,44 @@ class Subscriptions extends Component {
         success: false,
         alreadyInDb: false
     }
+    //Clears subscription error messages after 2 seconds
+    clearMessages = () => {
+        setTimeout(() => {
+            this.setState({
+              error: false,
+              success: false,
+              alreadyInDb: false,
+            })
+        }, 2000)
+    }
     
     saveSubscription = (email) => {
+        //Get email info and update db
         axios.get(`${URL_SUBSCRIPTIONS}?email=${email}`)
         .then(response => {
             if(!response.data.length) {
-                //post user
+                //post email to db
+                axios(URL_SUBSCRIPTIONS, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    data: JSON.stringify({email})
+                }).then(response => {
+
+                    this.setState({
+                        success: true,
+                        email: ''
+                    });
+                    this.clearMessages()
+                })
             } else {
-                //already in
+                //Email already in database
+                this.setState({
+                    email: '',
+                    alreadyInDb: true
+                })
+                this.clearMessages();
             }
         })
     }
@@ -31,11 +61,12 @@ class Subscriptions extends Component {
         event.preventDefault();
         let email = this.state.email;
         let emailValidateRegex = /^\S+@\S+\.\S+$/;
-
+        //Check to make sure input email is a valid email type
         if(emailValidateRegex.test(email)){
             this.saveSubscription(email);
         } else {
             this.setState({error: true})
+            this.clearMessages();
         }
 
     }
@@ -54,7 +85,12 @@ class Subscriptions extends Component {
                         placeholder='youremail@gmail.com'
                         onChange={this.onInputChange}
                        />
+                       {/* Conditional error messages depending on state.  Classes handle whether to show the div or not. */}
+                       <div className={state.error ? "error show" : "error"}>Check your email.</div>
+                       <div className={state.success ? "success show" : "success"}>Thank you for subscribing.</div>
+                       <div className={state.alreadyInDb? "success show" : "success"}>You are already in the database. </div>
                    </form>
+
                </div>
                <small>Lorem ipsum dolor sit amet</small>
             </div>
