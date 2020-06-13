@@ -1,1 +1,4 @@
-json-server --watch db.json
+//Run the json server first within root dir
+    json-server --watch db.json
+//Launch react app from localhost:3001
+    npm start
