@@ -4,9 +4,10 @@ import App from './App';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import reducers from './reducers';
+import promiseMiddleware from 'redux-promise';
 
 //create redux store and apply middleware
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
 ReactDOM.render(
     //provider is the redux component for sharing the store with the app

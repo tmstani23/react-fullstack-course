@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'; //Serves as a bridge between react component and redux store
 import {getMoviesList} from './actions';
 import {bindActionCreators} from 'redux';
+import Functional from './functional';
+import Hooks from './hooks';
 
 class App extends Component {
   
@@ -15,11 +17,11 @@ class App extends Component {
 
   render() {
     //Props passed by redux map function available in App
-    console.log(this.props);
+    //console.log(this.props);
 
     return (
       <div className="App">
-        {this.props.movies 
+        {/* {this.props.movies 
           ? 
             this.props.movies.map((item) => (
             <div key={item.id}>
@@ -27,7 +29,9 @@ class App extends Component {
             </div>
             ))
           : null
-        }
+        } */}
+        {/* <Functional /> */}
+        <Hooks />
       </div>
     );
   }
