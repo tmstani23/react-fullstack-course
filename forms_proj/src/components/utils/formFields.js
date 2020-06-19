@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormFields = ({formData, change, id}) => {
+const FormFields = ({formData, change, id, children}) => {
     
     const showError = () => {
         let errorMessage = null;
@@ -21,7 +21,7 @@ const FormFields = ({formData, change, id}) => {
 
     const renderTemplate = () => {
         let formTemplate = null;
-        console.log(formData);
+        //console.log(formData);
         switch(formData.element) {
             case('input'):
                 formTemplate = (
@@ -38,7 +38,44 @@ const FormFields = ({formData, change, id}) => {
 
                     </> 
                 )
+            break;
+            
+            case('select'):
+                formTemplate = (
+                    <>
+                        
+                        <select
+                            {...formData.config}
+                            value={formData.value}
+                            className='form-control'
+                            onBlur={(event) => change({event, id, blur:true})}
+                            onChange={(event) => change({event, id, blur:null})}
+                        >
+                            {children}
+                        </select>
+                        {showError()}
 
+                    </> 
+                )
+            break;
+
+            case('textarea'):
+                formTemplate = (
+                    <>
+                        
+                        <textarea
+                            {...formData.config}
+                            value={formData.value}
+                            className='form-control'
+                            onBlur={(event) => change({event, id, blur:true})}
+                            onChange={(event) => change({event, id, blur:null})}
+                        >
+                            
+                        </textarea>
+                        {showError()}
+
+                    </> 
+            )
             break;
             default: 
                 formTemplate = null;
