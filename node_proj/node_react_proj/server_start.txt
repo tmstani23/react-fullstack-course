@@ -1,0 +1,2 @@
+#run both front and backend servers concurrently
+npm run dev
