@@ -73,6 +73,45 @@ app.post('/api/remove_car', (req, res) => {
     // })
     
 })
+
+app.post('/api/update_car', (req, res) => {
+    const id = req.body.id;
+    const brand = req.body.brand
+
+    //Update car with new brand based on input properties
+    //args: what to update, what properties to update
+    // Car.update({_id: id}, {$set: {
+    //     brand: brand
+    // }}, (err, doc) => {
+    //     if(err) return console.log(err);
+    //     res.json(doc);
+    // })
+    
+    //Update car by id
+    //args are: what? id, what prop? brand, options
+    Car.findByIdAndUpdate(id, {$set: {
+        brand: brand
+    }}, 
+    {new: true}, 
+    (err, doc) => {
+        if(err) return console.log(err);
+        res.json(doc);
+    })
+
+    //Chain update commands
+    // Car.findById(id, (err, car) => {
+    //     if(err) return console.log(err)
+    //     console.log(car);
+    //     //Update the car doc with the new brand and save
+    //     car.set({
+    //         brand: brand
+    //     }).save( (err, doc) => {
+    //         if(err) return console.log(err);
+    //         res.json(doc)
+    //         })
+    // })
+    
+})
 /////////////////////////////////////
 
 ///////////////Get Routes//////////
