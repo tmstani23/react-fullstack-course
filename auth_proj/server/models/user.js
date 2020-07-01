@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const SALT_RANDOMNESS = 10;
 const jwt = require('jsonwebtoken');
+const config = require('../config/config').get(process.env.NODE_ENV)
 
 const userSchema = mongoose.Schema({
     email: {
@@ -17,7 +18,6 @@ const userSchema = mongoose.Schema({
     },
     token: {
         type: String,
-        required: true
     }
 });
 
@@ -63,7 +63,7 @@ userSchema.methods.generateToken = function(cb) {
     //ref to user document 
     var user = this;
     //create signed token
-    let token = jwt.sign(user._id.toHexString(), 'supersecret')
+    let token = jwt.sign(user._id.toHexString(), config.SECRET)
     //set user token to new token
     user.token = token;
     //save and return user
@@ -81,7 +81,7 @@ userSchema.statics.findByToken = function(token, cb) {
     //ref to user document 
     var user = this;
     //decode token and verify if it matches
-    jwt.verify(token, 'supersecret', (err, decodedToken) => {
+    jwt.verify(token, config.SECRET, (err, decodedToken) => {
         if(err) return cb(err);
         //find user by id and return user or error
         user.findOne({'_id': decodedToken, 'token': token}, (err, user) => {
@@ -91,7 +91,14 @@ userSchema.statics.findByToken = function(token, cb) {
     })
 }
 
-console.log(userSchema)
+userSchema.methods.deleteToken = function (token, cb) {
+    var user = this;
+
+    user.update({$unset: {token: 1}}, (err, user) => {
+        if(err) return cb(err);
+        cb(null, user);
+    })
+}
 
 const User = mongoose.model('User', userSchema);
 
