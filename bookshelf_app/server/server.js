@@ -15,8 +15,12 @@ mongoose.connect(config.DATABASE, {
 })
 
 //Middleware
+//Note- parser middleware must be initiated before any routes
 app.use(bodyParser.json());
+app.use(cookieParser());
+
 app.use('/api/users', userRoute) ///api/users/register
+
 
 const port = process.env.PORT || 3001;
 
