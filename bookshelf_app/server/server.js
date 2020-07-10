@@ -6,6 +6,7 @@ const app = express();
 const config = require('./config/config').get(process.env.NODE_ENV);
 
 const userRoute = require('./routes/user_routes');
+const booksRoute = require('./routes/books_route');
 
 mongoose.connect(config.DATABASE, {
     useNewUrlParser: true,
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', userRoute) ///api/users/register
+app.use('/api/books', booksRoute) //api/books/...
 
 
 const port = process.env.PORT || 3001;
