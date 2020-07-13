@@ -70,4 +70,23 @@ router.route('/book')
         })
     })
 
+
+
+//Routes for all books
+router.route('/all_books')
+    //ex: http://localhost:3001/api/books/all_books?skip=1&limit=2&order=asc&owner=sdfjdskjadsfa
+    .get((req, res) => {
+        let skip = req.query.skip ? parseInt(req.query.skip) : 0;
+        let limit = req.query.limit ? parseInt(req.query.limit) : 50;
+        let order = req.query.order? req.query.order : 0;
+        //If an owner id object is passed use it else use an empty obj as default
+        let byOwner = req.query.owner ? {ownerId: req.query.owner} : {};
+
+        Book.find().skip(skip).sort({_id: order}).limit(limit).exec((err, doc) => {
+            if(err) return res.status(400).send(err);
+            res.send(doc);
+        })
+
+    })
+
 module.exports = router;
