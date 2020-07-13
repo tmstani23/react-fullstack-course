@@ -1,0 +1,7 @@
+//Run client and backend server concurrently
+    -type npm run dev at root dir.
+
+//Run client by itself
+    -type npm run client at root dir.
+//Run backend server by itself
+    -type 'npm run server' at root dir.
