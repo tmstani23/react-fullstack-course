@@ -55,6 +55,10 @@ header .navItem a {
     text-decoration: none;
 }
 
+header .navItem a svg {
+    margin-right: 5px;
+}
+
 header .navItem span {
     color:white;
     margin-right:10px;
