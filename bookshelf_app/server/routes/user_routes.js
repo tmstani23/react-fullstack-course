@@ -54,6 +54,12 @@ router.post('/login', (req, res) => {
                 //store token as cookie in browser
                 res.cookie('auth', user.token).json({
                     auth: true,
+                    userData: {
+                        id: user._id,
+                        email: user.email,
+                        name: user.name,
+                        lastname: user.lastname
+                    }
                 })
             })
 
