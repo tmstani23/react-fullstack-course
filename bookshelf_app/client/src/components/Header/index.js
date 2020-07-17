@@ -9,7 +9,6 @@ const Header = (props) => {
     let [mainNav, setMainNav] = useState(false);
 
     const onShowNav = () => {
-        console.log('show nav true')
         setMainNav(true);
     }
     const onHideNav = () => {

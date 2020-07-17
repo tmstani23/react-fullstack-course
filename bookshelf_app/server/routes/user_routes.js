@@ -70,7 +70,7 @@ router.post('/login', (req, res) => {
 });
 
 //Get routes
-
+//Returns positive authentication and user data
 router.get('/auth', auth, (req, res) => {
     
     res.json({
@@ -83,7 +83,7 @@ router.get('/auth', auth, (req, res) => {
         }
     })
 })
-
+//deletes the token effectively logging the user out
 router.get('/logout', auth, (req, res) => {
     req.user.deleteToken(req.token, (err, user) => {
         if(err) return res.status(400).send(err)

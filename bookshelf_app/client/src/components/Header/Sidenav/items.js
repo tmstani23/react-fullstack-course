@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {routeLinks} from '../../../utils/route_links';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import {connect} from 'react-redux';
 
 const Items = (props) => {
 
@@ -35,26 +35,45 @@ const Items = (props) => {
 
     const showCommonLinks = () => (
         routeLinks.common.map((item, i) => {
-            return (
-                element(item, i)
-            )
-            })
+            //If the user is already logged in 
+                //don't show login link else show it
+            if(props.user.auth && item.restricted === true) {
+                return null;
+            }
+            
+            else {
+                return (
+                    element(item, i)
+                )
+            }
+        })
     )
-
-
 
     return (
         <div>
             {showCommonLinks()}
-            <div>
-                <div className="nav_split">
-                    Admin Options
-                </div>
-                {showAdminLinks()}
-            </div>
+            {/* If the user is authorized show admin options links on sidebar */}
+            {
+                props.user.auth 
+                    ?   <div>
+                            <div className="nav_split">
+                                Admin Options
+                            </div>
+                            {showAdminLinks()}
+                        </div>
+                    :   null 
+            }
+            
         </div>
     )
 
 }
 
-export default Items;
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+        
+}
+
+export default connect(mapStateToProps)(Items);

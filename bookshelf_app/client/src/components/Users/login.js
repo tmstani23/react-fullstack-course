@@ -20,6 +20,25 @@ class Login extends Component {
         success: false,
         validation: false,
     }
+
+    static getDerivedStateFromProps(props, state) {
+        //flag whether user is authenticated
+        const isAuthenticated = props.user.auth;
+        if(isAuthenticated) {
+            return {
+                // state is updated automatically without using setState in getDerivedStateFromProps
+                success: isAuthenticated ? true : false
+            }
+        }
+        return null;
+    }
+
+    componentDidUpdate() {
+        if(this.state.success) {
+            // redirect the user to admin route using browser history
+            this.props.history.push('/admin')
+        }
+    }
     
     render() {
         return (
@@ -33,7 +52,14 @@ class Login extends Component {
                     initialValues={{email: 'timbob2@gmail.com', password: 'timbob123'}}
                     validationSchema={loginSchema}
                     // dispatch is a redux method to execute the loginUser redux action
-                    onSubmit={values => this.props.dispatch(loginUser(values))}
+                    onSubmit={values => this.props.dispatch(loginUser(values)).then(response => {
+                        if(!this.props.user.auth) {
+                            this.setState({
+                                validation: true
+                            })
+                        }
+                        })
+                    }
                 >
                     {/* destructuring properties from Formik input obj*/}
                     {({
@@ -84,6 +110,16 @@ class Login extends Component {
                             <button type='submit'>
                                 Login
                             </button>
+                            <br />
+                            {/* If validation flag is set throw give an error message */}
+                            {
+                                this.state.validation 
+                                ? <div className='error_label'>
+                                    Incorrect login info.
+                                </div>
+
+                                : null
+                            }
                         </form>
 
                     )}
