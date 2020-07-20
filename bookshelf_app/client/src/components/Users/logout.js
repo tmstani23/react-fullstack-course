@@ -20,7 +20,7 @@ const Logout = (props) => {
                 props.history.push('/')
             }, 2000)
         }
-    }, [dispatch, logoutSelector])
+    }, [dispatch, logoutSelector, props.history])
 
 
     return (

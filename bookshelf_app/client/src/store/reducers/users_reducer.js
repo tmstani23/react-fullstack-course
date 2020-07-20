@@ -11,7 +11,6 @@ export default (state={}, action) => {
                 userData: action.payload.userData,
             
             }
-            break;
         case USER_LOGOUT:
             return {
                 ...state,
@@ -19,7 +18,6 @@ export default (state={}, action) => {
                 userData: false,
             
             }
-            break;
         //send the current auth and userdata state to the redux store if they exist
         case USER_AUTH:
             return {

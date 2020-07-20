@@ -22,7 +22,7 @@ export default function (ComposedClass, reload) {
                         this.props.history.push('/login')
                     } 
                     else {
-                        //reload prevents logged in users at from going to wrong routes
+                        //reload prevents logged in users from going to wrong routes
                         if(reload === false) {
                             this.props.history.push('/admin')
                         }
