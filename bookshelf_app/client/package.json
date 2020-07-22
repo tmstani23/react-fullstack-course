@@ -13,6 +13,7 @@
     "draft-js": "^0.11.6",
     "draft-js-export-html": "^1.4.1",
     "formik": "^2.1.5",
+    "html-to-draftjs": "^1.5.0",
     "react": "^16.13.1",
     "react-cookies": "^0.1.1",
     "react-dom": "^16.13.1",

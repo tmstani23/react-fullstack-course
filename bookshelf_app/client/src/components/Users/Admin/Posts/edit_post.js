@@ -6,84 +6,95 @@ import {
     FormElement, BookSchema
 } from './helpers/posts_helper';
 // react-draft wysiwyg component imports
-import {EditorState} from 'draft-js'
+import {EditorState, ContentState} from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
 import {stateToHTML} from 'draft-js-export-html';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Redux imports
 import {connect} from 'react-redux';
-import {addBook, clearBook} from '../../../../store/actions/book_actions';
+import {addBook, clearBook, getBook} from '../../../../store/actions/book_actions';
 
 class AddPosts extends Component {
     state = {
-        editorState: EditorState.createEmpty(),
+        editorState: '',
         editorContentHtml: '',
+        loading: true,
+        bookToEdit: {},
         success: false
     }
     // Update state with editor object and converted html
     onEditorStateChange = (editorState) => {
         this.setState({
-          editorState,
-          editorContentHtml: stateToHTML(editorState.getCurrentContent())
+          editorState
         })
     }
 
     // dispatch the input vals from the book form to the redux reducer
-    onPostBook = (values) => {
+    onEditBook = (values) => {
       this.props.dispatch(addBook(values));
     }
 
     componentDidUpdate(prevProps) {
-      const hasChanged = this.props.books !== prevProps.books;
+    //   const hasChanged = this.props.books !== prevProps.books;
       
-      if(hasChanged) this.setState({success: true});
+    //   if(hasChanged) this.setState({success: true});
     }
 
     componentWillUnmount(){
-      this.props.dispatch(clearBook());
+    //   this.props.dispatch(clearBook());
+    }
+
+    componentDidMount(){
+        //Fetch book
+        this.props.dispatch(getBook(this.props.match.params.id))
     }
 
     render() {
-        return (
-          <AdminLayout>
-            <h4>Add a book</h4>
+        return this.state.loading ? <>Loading...</>
+            : <AdminLayout>
+            <h4>Edit book</h4>
             {/* Formik form for handling book inputs and form event handling as well as validation of form inputs */}
             <Formik
-              initialValues={{
-                name: '',
-                author: '',
-                pages: '',
-                rating: '',
-                price: '',
-              }}
-              validationSchema={BookSchema}
-              // resetForm is a builtin Formik helper function
-              onSubmit={(values, {resetForm}) => {
-                //post the book data to the backend server
-                this.onPostBook({
-                  ...values,
-                  content: this.state.editorContentHtml
-                })
-                //reset state to empty
-                this.setState({
-                  editorState: EditorState.createEmpty(),
-                  editorContentHtml: ''
-                })
-                // reset form
-                resetForm({});
-              }}
+                //re-initialize on second component loading - formik method
+                enableReinitialize={true}
+                initialValues={
+                    this.state.bookToEdit
+                }
+                validationSchema={BookSchema}
+                // resetForm is a builtin Formik helper function
+                onSubmit={(values, {resetForm}) => {
+                // //post the book data to the backend server
+                // this.onPostBook({
+                //     ...values,
+                //     content: this.state.editorContentHtml
+                // })
+                // //reset state to empty
+                // this.setState({
+                //     editorState: EditorState.createEmpty(),
+                //     editorContentHtml: ''
+                // })
+                // // reset form
+                // resetForm({});
+                }}
             >
-              {({
+                {({
                 values,
                 errors,
                 touched,
                 handleChange,
                 handleBlur,
                 handleSubmit,
-              }) => (
+                }) => (
                 // form containing various inputs for book details
                 <form onSubmit={handleSubmit}>
+                    <input 
+                        type='hidden'
+                        name='_id'
+                        value={values._id}
+                    />
+
                     {/* Element for entering the books title */}
                     <FormElement
                         elData={{
@@ -168,23 +179,23 @@ class AddPosts extends Component {
                     <button type="submit">Add book</button>
                     <br />
                     {
-                      // link to the book if the post is successful
-                      this.state.success 
-                        ? <div className='succes_entry'>
-                          <div>Congrats!</div>
-                          <Link to={`/article/${this.props.books.add.bookId}`}>
-                            See your book
-                          </Link>
-                        </div>
-                          
-                        : null
+                        // link to the book if the post is successful
+                        // this.state.success 
+                        // ? <div className='succes_entry'>
+                        //     <div>Congrats!</div>
+                        //     <Link to={`/article/${this.props.books.add.bookId}`}>
+                        //     See your book
+                        //     </Link>
+                        // </div>
+                            
+                        // : null
                     }
 
                 </form>
-              )}
+                )}
             </ Formik>
-          </AdminLayout>
-        );
+            </AdminLayout>
+        
     }
 
 }
