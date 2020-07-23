@@ -15,15 +15,9 @@ router.route('/book')
         let id = req.query.id;
 
         //find book in db by id and return its document if found
-        // Book.find({_id: id}, (err, doc) => {
-        //     if(err) return res.status(400).send(err);
-        //     res.send(...doc);
-        // })
 
         Book
-            .find({_id: id}, (err, doc) => {
-                if(err) return res.status(400).send(err);
-            })
+            .find({_id: id})
             // populate goes to another collection (users) and includes all that user's data in the response
             .populate('ownerId', 'name lastname')
             .exec((err, doc) => {

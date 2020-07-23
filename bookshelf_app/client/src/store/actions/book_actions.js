@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_BOOK, CLEAR_BOOK, GET_BOOK} from '../types';
+import {ADD_BOOK, UPDATE_BOOK, CLEAR_BOOK, GET_BOOK} from '../types';
 
 // function that posts the book data to the backend api 
     // and returns the response and type to the reducer
@@ -11,6 +11,16 @@ export function addBook(book) {
         type: ADD_BOOK,
         payload: request
     }
+}
+
+export function editBook(book) {
+    //  /api/books/book
+    const request = axios.patch('/api/books/book', book)
+        .then(response => response.data)
+        return {
+            type: UPDATE_BOOK,
+            payload: request
+        }
 }
 
 export function getBook(bookId) {

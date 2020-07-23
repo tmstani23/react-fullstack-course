@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
 import {Formik} from 'formik';
-import {Link} from 'react-router-dom';
 import AdminLayout from '../../../../hoc/admin_layout';
+import {Link} from 'react-router-dom';
 import {
     FormElement, BookSchema
 } from './helpers/posts_helper';
 // react-draft wysiwyg component imports
 import {EditorState, ContentState} from 'draft-js';
 import htmlToDraft from 'html-to-draftjs';
-import {stateToHTML} from 'draft-js-export-html';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 // Redux imports
 import {connect} from 'react-redux';
-import {addBook, clearBook, getBook} from '../../../../store/actions/book_actions';
+import {editBook, clearBook, getBook} from '../../../../store/actions/book_actions';
+import { stateToHTML } from 'draft-js-export-html';
 
 class AddPosts extends Component {
     state = {
@@ -33,17 +33,51 @@ class AddPosts extends Component {
 
     // dispatch the input vals from the book form to the redux reducer
     onEditBook = (values) => {
-      this.props.dispatch(addBook(values));
+      this.props.dispatch(editBook(values));
     }
 
     componentDidUpdate(prevProps) {
-    //   const hasChanged = this.props.books !== prevProps.books;
-      
-    //   if(hasChanged) this.setState({success: true});
+        const singleBook = this.props.books.singleBook;
+        const hasChanged = singleBook !== prevProps.books.singleBook;
+        const hasUpdated= this.props.books.updateBook !== prevProps.books.updateBook;
+        
+        //Send success flag if a new book has been added
+        if(hasUpdated) this.setState({success: true});
+        
+
+        if(hasChanged) {
+            //If the book exists in the store convert content and update state with book info
+            if(singleBook !== false) {
+                //convert html to draftjs object
+                const blocksFromHtml = htmlToDraft(singleBook.content);
+                //destructure converted obj into blocks and map
+                const {contentBlocks, entityMap} = blocksFromHtml;
+                //Create draftjs content state
+                const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
+
+                this.setState({
+                    loading: false,
+                    editorState: EditorState.createWithContent(contentState),
+                    bookToEdit: {
+                        _id: singleBook._id,
+                        name: singleBook.name,
+                        author: singleBook.author,
+                        pages: singleBook.pages,
+                        rating: singleBook.rating,
+                        price: singleBook.price,
+                    }
+                })
+            } else {
+                //Send user back to home directory
+                this.props.history.push('/');
+            }
+
+            
+        }
     }
 
     componentWillUnmount(){
-    //   this.props.dispatch(clearBook());
+        this.props.dispatch(clearBook());
     }
 
     componentDidMount(){
@@ -64,19 +98,11 @@ class AddPosts extends Component {
                 }
                 validationSchema={BookSchema}
                 // resetForm is a builtin Formik helper function
-                onSubmit={(values, {resetForm}) => {
-                // //post the book data to the backend server
-                // this.onPostBook({
-                //     ...values,
-                //     content: this.state.editorContentHtml
-                // })
-                // //reset state to empty
-                // this.setState({
-                //     editorState: EditorState.createEmpty(),
-                //     editorContentHtml: ''
-                // })
-                // // reset form
-                // resetForm({});
+                onSubmit={(values) => {
+                    this.onEditBook({
+                        ...values,
+                        content: stateToHTML(this.state.editorState.getCurrentContent())
+                    })
                 }}
             >
                 {({
@@ -179,16 +205,16 @@ class AddPosts extends Component {
                     <button type="submit">Add book</button>
                     <br />
                     {
-                        // link to the book if the post is successful
-                        // this.state.success 
-                        // ? <div className='succes_entry'>
-                        //     <div>Congrats!</div>
-                        //     <Link to={`/article/${this.props.books.add.bookId}`}>
-                        //     See your book
-                        //     </Link>
-                        // </div>
+                        //link to the book if the post is successful
+                        this.state.success 
+                        ? <div className='succes_entry'>
+                            <div>Update Completed</div>
+                            <Link to={`/article/${this.props.books.updateBook.doc._id}`}>
+                                See your book
+                            </Link>
+                        </div>
                             
-                        // : null
+                        : null
                     }
 
                 </form>

@@ -172,7 +172,7 @@ class AddPosts extends Component {
                       this.state.success 
                         ? <div className='succes_entry'>
                           <div>Congrats!</div>
-                          <Link to={`/article/${this.props.books.add.bookId}`}>
+                          <Link to={`/article/${this.props.books.addBook.bookId}`}>
                             See your book
                           </Link>
                         </div>
