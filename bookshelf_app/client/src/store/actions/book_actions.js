@@ -1,16 +1,34 @@
 import axios from 'axios';
-import {ADD_BOOK, UPDATE_BOOK, CLEAR_BOOK, GET_BOOK} from '../types';
+import {ADD_BOOK, UPDATE_BOOK, CLEAR_BOOK, GET_BOOK, GET_BOOKS} from '../types';
+
 
 // function that posts the book data to the backend api 
     // and returns the response and type to the reducer
 export function addBook(book) {
     const request = axios.post('/api/books/book', book)
-        .then((response)=> response.data)
+        .then((response) => response.data)
     
     return {
         type: ADD_BOOK,
         payload: request
     }
+}
+
+export function getBooks(
+    limit=50,
+    start = 0,
+    order = 'asc',
+    list
+){
+    const request = axios.get(`/api/books/all_books?limit=${limit}&skip=${start}&order=${order}`)
+        .then((response) => {
+            return response.data
+        })
+
+        return {
+            type: GET_BOOKS,
+            payload: request
+        }
 }
 
 export function editBook(book) {

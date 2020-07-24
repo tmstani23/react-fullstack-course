@@ -1,10 +1,12 @@
-import {ADD_BOOK, GET_BOOK, UPDATE_BOOK, CLEAR_BOOK} from '../types';
+import {ADD_BOOK, GET_BOOK, UPDATE_BOOK, GET_BOOKS, CLEAR_BOOK} from '../types';
 
 //Book reducers to add or clear a book in the store
 export default (state={}, action) => {
     switch(action.type) {
         case ADD_BOOK:
             return {...state, addBook: action.payload}
+        case GET_BOOKS:
+            return {...state, collection: action.payload}
         case UPDATE_BOOK:
             return {...state, updateBook: action.payload}
         //overwites the add property to null based on the past in action

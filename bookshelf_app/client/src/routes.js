@@ -10,6 +10,7 @@ import MainLayout from './hoc/main_layout';
 import Admin from './components/Users/Admin';
 import AddPosts from './components/Users/Admin/Posts/add_post';
 import EditPost from './components/Users/Admin/Posts/edit_post';
+import AdminPosts from './components/Users/Admin/Posts/posts';
 
 const Routes = () => {
     return (
@@ -17,6 +18,7 @@ const Routes = () => {
             <MainLayout>
                 <Switch>
                     <Route path='/admin/posts/edit/:id' component={Auth(EditPost, true)} /> 
+                    <Route path='/admin/posts' component={Auth(AdminPosts, true)} /> 
                     <Route path='/admin/posts/create' component={Auth(AddPosts, true)} /> 
                     <Route path='/admin' component={Auth(Admin, true)} /> 
                     <Route path='/logout' component={Auth(Logout, true)} /> 

@@ -202,7 +202,7 @@ class AddPosts extends Component {
                         errors={errors.price}
                         touched={touched.price}
                     />
-                    <button type="submit">Add book</button>
+                    <button type="submit">Update book</button>
                     <br />
                     {
                         //link to the book if the post is successful
