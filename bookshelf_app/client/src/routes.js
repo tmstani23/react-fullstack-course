@@ -11,6 +11,7 @@ import Admin from './components/Users/Admin';
 import AddPosts from './components/Users/Admin/Posts/add_post';
 import EditPost from './components/Users/Admin/Posts/edit_post';
 import AdminPosts from './components/Users/Admin/Posts/posts';
+import Article from './components/Article';
 
 const Routes = () => {
     return (
@@ -18,11 +19,12 @@ const Routes = () => {
             <MainLayout>
                 <Switch>
                     <Route path='/admin/posts/edit/:id' component={Auth(EditPost, true)} /> 
-                    <Route path='/admin/posts' component={Auth(AdminPosts, true)} /> 
                     <Route path='/admin/posts/create' component={Auth(AddPosts, true)} /> 
+                    <Route path='/admin/posts' component={Auth(AdminPosts, true)} /> 
+                    <Route path='/article/:id' component={Auth(Article)} />                    
                     <Route path='/admin' component={Auth(Admin, true)} /> 
                     <Route path='/logout' component={Auth(Logout, true)} /> 
-                    {/* if user is already logged in */}
+                    {/* if user is already logged in don't reload component*/}
                     <Route path='/login' component={Auth(Login, false)} /> 
                     <Route path='/' component={Auth(Home)} /> 
                 </Switch> 

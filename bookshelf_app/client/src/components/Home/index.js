@@ -4,6 +4,14 @@ import {getBooks} from '../../store/actions/book_actions';
 import {RowGenerator, GenerateRowsWithBlocks} from '../../utils/helpers';
 
 class Home extends Component {
+    
+    loadMore = () => {
+        let bookList = this.props.books.collection;
+        let count = bookList.length;
+        //dispatch the next two posts and skip the previous 
+        this.props.dispatch(getBooks(2, count, 'desc', bookList))
+    }
+    
     //creates a jsx grid of books from the books collection 
     showBooks = (books) => {
         if(books.collection) {
@@ -29,7 +37,7 @@ class Home extends Component {
                 <div className='row articles_container'>
                     {this.showBooks(this.props.books)}
                 </div>
-                <div className='loadmore'>
+                <div onClick={this.loadMore} className='loadmore'>
                     Load More
                 </div>
             </div>

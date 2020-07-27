@@ -22,7 +22,8 @@ export function getBooks(
 ){
     const request = axios.get(`/api/books/all_books?limit=${limit}&skip=${start}&order=${order}`)
         .then((response) => {
-            return response.data
+            //if a list was passed in add the response data to it else just return the data
+            return list ? [...list, ...response.data] : response.data
         })
 
         return {
@@ -58,7 +59,7 @@ export function getBook(bookId) {
 }
 
 //Sends a null payload to the reducer to reset the book in the redux store
-export function clearBook(book){
+export function clearBook(){
     return {
         type: CLEAR_BOOK,
         payload: null

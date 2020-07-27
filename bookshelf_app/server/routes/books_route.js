@@ -22,7 +22,6 @@ router.route('/book')
             .populate('ownerId', 'name lastname')
             .exec((err, doc) => {
                 if(err) return res.status(400).send(err);
-                console.log("/book get route working")
                 res.send(...doc)
             })
     })

@@ -13,7 +13,7 @@ export const RowGenerator = (list, cols) => {
         )  
         
     )
-    console.log(articleRows)
+    //console.log(articleRows)
     return articleRows;
 }
 
@@ -21,10 +21,10 @@ export const RowGenerator = (list, cols) => {
 export const GenerateRowsWithBlocks = (rows, type) => (
     
     rows.map((row, i) => (
-        <div className = 'row' key={i}>
+        <div className= 'row' key={i}>
             {
                 row.map((article) => (
-                    <div key={article.id} className={`${type} columns article_block`}>
+                    <div  key={article._id} className={`${type} columns article_block`}>
                         <Link to={`/article/${article._id}`}>
                             <div className='top'>
                                 <h3>{article.name}</h3>

@@ -8,7 +8,17 @@ const config = require('./config/config').get(process.env.NODE_ENV);
 const userRoute = require('./routes/user_routes');
 const booksRoute = require('./routes/books_route');
 
-mongoose.connect(config.DATABASE, {
+//mongodb+srv://tmstani23:<password>@cluster0.1e3jn.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+// mongoose.connect(config.DATABASE, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false
+// })
+console.log(process.env.REACT_APP_MONGO_URL)
+
+mongoose.connect(process.env.REACT_APP_MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -23,6 +33,18 @@ app.use(cookieParser());
 app.use('/api/users', userRoute) ///api/users/register
 app.use('/api/books', booksRoute) //api/books/...
 
+//enable client build middleware
+app.use(express.static('client/build'));
+
+
+//Use build html instead of dev
+//if(process.env.NODE_ENV === 'production') {
+    const path = require('path');
+    app.get('/*', (req, res) => {
+        console.log(`prod build works route: ${req}`)
+        res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
+    })
+//}
 
 const port = process.env.PORT || 3001;
 
