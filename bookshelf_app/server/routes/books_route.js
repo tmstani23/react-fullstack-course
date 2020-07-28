@@ -15,20 +15,13 @@ router.route('/book')
         let id = req.query.id;
 
         //find book in db by id and return its document if found
-        // Book.find({_id: id}, (err, doc) => {
-        //     if(err) return res.status(400).send(err);
-        //     res.send(...doc);
-        // })
 
         Book
-            .find({_id: id}, (err, doc) => {
-                if(err) return res.status(400).send(err);
-            })
+            .find({_id: id})
             // populate goes to another collection (users) and includes all that user's data in the response
             .populate('ownerId', 'name lastname')
             .exec((err, doc) => {
                 if(err) return res.status(400).send(err);
-                console.log("/book get route working")
                 res.send(...doc)
             })
     })
@@ -77,7 +70,7 @@ router.route('/all_books')
     //ex: http://localhost:3001/api/books/all_books?skip=1&limit=2&order=asc&owner=sdfjdskjadsfa
     .get((req, res) => {
         let skip = req.query.skip ? parseInt(req.query.skip) : 0;
-        let limit = req.query.limit ? parseInt(req.query.limit) : 50;
+        let limit = req.query.limit ? parseInt(req.query.limit) : 0;
         let order = req.query.order? req.query.order : 0;
         //If an owner id object is passed use it else use an empty obj as default
         let byOwner = req.query.owner ? {ownerId: req.query.owner} : {};
