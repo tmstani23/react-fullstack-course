@@ -23,9 +23,25 @@ router.post('/register', (req, res) => {
             user: doc
         })
     })
-
-
 });
+
+router.get('/all_users', (req, res) => {
+        console.log('all_users working')
+        //ex url: api/users/all_users
+        
+        //find book in db by id and return its document if found
+
+        User
+            .find()
+            // populate goes to another collection (users) and includes all that user's data in the response
+            .exec((err, doc) => {
+                if(err) return res.status(400).send(err);
+                res.send(doc)
+            })
+    })
+
+
+
 //User login route
 router.post('/login', (req, res) => {
     console.log('/login route works')

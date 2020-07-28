@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {USER_LOGIN, USER_AUTH, USER_LOGOUT} from '../types';
+import {USER_LOGIN, USER_AUTH, USER_LOGOUT, GET_USERS} from '../types';
 
 /////USER ACTIONS//////
 //post the user to the login backend api route and return the action type and data payload
@@ -33,6 +33,16 @@ export function logoutUser() {
     //return type and payload for redux
     return {
         type: USER_LOGOUT,
+        payload: request
+    }
+}
+
+export function getUsers() {
+    const request = axios.get('/api/users/all_users')
+        .then(response => response.data);
+
+    return {
+        type: GET_USERS,
         payload: request
     }
 }
