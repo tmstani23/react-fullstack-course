@@ -29,9 +29,26 @@ router.post('/register', (req, res) => {
 
         return res.status(200).json({
             success: true,
-            user: doc
+            user: doc,
         })
     })
+});
+
+router.post('/delete_user', (req, res) => {
+    console.log('/delete_user route works')
+    const email = req.body.email;
+    
+
+    User.findOneAndRemove({'email': email})
+        .exec((err, doc) => {
+        if(err) return res.status(400).json({error: err.message})
+        
+        return res.status(200).json({
+            success: true,
+            email: doc.email,
+            error: ''
+        })
+      });
 });
 
 router.get('/all_users', (req, res) => {
@@ -83,7 +100,8 @@ router.post('/login', (req, res) => {
                         id: user._id,
                         email: user.email,
                         name: user.name,
-                        lastname: user.lastname
+                        lastname: user.lastname,
+                        role: user.role
                     }
                 })
             })

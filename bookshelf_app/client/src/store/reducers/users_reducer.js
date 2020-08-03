@@ -29,7 +29,6 @@ export default (state={}, action) => {
         case GET_USERS:
             return {
                 ...state,
-                auth: action.payload.auth ? action.payload.auth : false,
                 users: action.payload ? action.payload : false
             
             }

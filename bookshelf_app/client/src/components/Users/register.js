@@ -12,7 +12,7 @@ class Register extends Component {
         error: ''
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.props.dispatch(getUsers())
     }
 
@@ -28,11 +28,11 @@ class Register extends Component {
     handleInputLastname = (event) => {
         this.setState({lastname: event.target.value})
     }
-
+    
     componentWillReceiveProps(nextProps) {
         if(nextProps.user.register === false) {
             let errMsg = nextProps.user.error.message;
-            console.log(errMsg)
+            
             this.setState({error: errMsg})
         } else {
             this.setState({
@@ -43,13 +43,17 @@ class Register extends Component {
                 error: ''
             })
         }
+        
     }
+
+    
+    
 
     submitForm = (event) => {
         event.preventDefault();
         //clear errors on form submit
         this.setState({error: ''});
-        console.log(this.props.user);
+        
         this.props.dispatch(userRegister({
             email: this.state.email,
             password: this.state.password,
@@ -58,7 +62,6 @@ class Register extends Component {
             }, this.props.user.users
         ))
     }
-
     showUsers = (user) => (
         user.users 
             ? user.users.map(item => (
@@ -123,6 +126,7 @@ class Register extends Component {
                     
 
                 </form>
+                
                 <div>
                     <h4>Current Users</h4>
                     <table>

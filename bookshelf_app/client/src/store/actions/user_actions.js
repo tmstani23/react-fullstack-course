@@ -69,22 +69,4 @@ export function userRegister(user, userList) {
         payload: request
     }
 
-
-
-        // return (dispatch) => {
-        //     //destructure data from the request
-        //     request.then(({data}) => {
-        //         let response = {
-        //             success: data.success,
-        //             users: [...userList, data.user]
-        //         }
-        //         //may need to import redux
-        //         dispatch({
-        //             type: 'USER_REGISTER',
-        //             payload: response
-        //         })
-
-        //     })
-        // }
-
 }
