@@ -40,7 +40,9 @@ class AddPosts extends Component {
         const singleBook = this.props.books.singleBook;
         const hasChanged = singleBook !== prevProps.books.singleBook;
         const hasUpdated= this.props.books.updateBook !== prevProps.books.updateBook;
-        
+
+        //verify user can edit
+        //else push user back to 
         //Send success flag if a new book has been added
         if(hasUpdated) this.setState({success: true});
         

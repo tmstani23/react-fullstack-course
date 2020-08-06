@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 
 class DeleteUser extends Component {
@@ -8,6 +9,7 @@ class DeleteUser extends Component {
         email: '',
         error: ''
     }
+
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -19,39 +21,44 @@ class DeleteUser extends Component {
     }
 
     handleChange = (event) => {
+        //update email state with email input from form
         this.setState({
             email: event.target.value,
         })
     }
 
-    deleteUser = () => {
-        const email = {
-            email: this.state.email}
-        ;
-        let error = '';
-        console.log(email);
-        let request = axios.post('/api/users/delete_user', email)
-            .then(response => {
-                
-                console.log(response.data)
-                return response.data
-            }).catch(err => {
-                console.log(err)
-                error = 'Incorrect email entered';
-                return error;
-            })
-
+    handleSuccess = (data) => {
+        //Dynamically set the error or success message 
+            //based on what is returned as data from the backend
         this.setState({
-            email: request.email ? request.email : '',
-            error: error !== '' ? error : '',
-            success: request.success
+            email: data.email ? data.email : '',
+            error: data.error ? data.error : '',
+            success: data.success
         })
+    }
+    deleteUser = () => {
+        let bodyObj = {
+            email: this.state.email,
+            loggedInUserRole: this.props.user.userData.role
+        };
+        
+        axios.post('/api/users/delete_user', bodyObj)
+            .then(response => {
+                this.handleSuccess(response.data)
+                //console.log(response.data)
+                return response.data
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        
+        
     }
     
     render() {
-        //console.log(this.state.error)
+        console.log(this.props);
         return (
-            <div className='container admin_layout'>
+            <div >
                 <form onSubmit={this.handleSubmit}>
                     <h4>Delete User</h4>
                     <input 
@@ -62,12 +69,22 @@ class DeleteUser extends Component {
                     ></input>
                     <button type="submit">Submit</button>
                 </form>
-                {this.state.error !==  '' ? this.state.error : null}
+                {/* Display a success or error message depending on the result of the api call */}
+                {this.state.success
+                    ? <div className="error_label">User removed: {this.state.email}</div> 
+                    : (this.state.error ? <div className='error_label'> {this.state.error}</div> : null)
+                }
+                
             </div>
         )
     }
     
 }
 
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
 
-export default DeleteUser;
+export default connect(mapStateToProps)(DeleteUser);

@@ -24,7 +24,7 @@ const Routes = () => {
                     <Route path='/admin/posts' component={Auth(AdminPosts, true)} /> 
                     <Route path='/article/:id' component={Auth(Article)} />                    
                     <Route path='/admin' component={Auth(Admin, true)} />
-                    <Route path='/register' component={Auth(Register, true)} /> 
+                    <Route path='/register' component={Register} /> 
                     <Route path='/logout' component={Auth(Logout, true)} /> 
                     {/* if user is already logged in don't reload component*/}
                     <Route path='/login' component={Auth(Login, false)} /> 

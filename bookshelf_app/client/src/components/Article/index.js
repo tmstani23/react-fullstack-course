@@ -6,6 +6,7 @@ const Article = (props) => {
     
     const article = useSelector(state => state.books);
     const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.user)
 
     useEffect(() => {
         dispatch(getBook(props.match.params.id))
@@ -18,7 +19,7 @@ const Article = (props) => {
     const showArticle = () => {
         if(article.singleBook) {
             const singleArticle = article.singleBook;
-
+            const user = currentUser.userData;
             return <div className='single_article_container'>
                 <div className='top'>
                     <h3>{singleArticle.name}</h3>
@@ -31,7 +32,7 @@ const Article = (props) => {
                         dangerouslySetInnerHTML={{__html: singleArticle.content}}
                     />
                     <div>
-                        <i>Reviewed by: {`${singleArticle.ownerId.name} ${singleArticle.ownerId.lastname}`}</i>
+                        <i><span>Viewed by:</span> {`${user.name} ${user.lastname}`}</i>
                     </div>
                 </div>
             </div>

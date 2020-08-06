@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getUsers, userRegister} from '../../store/actions/user_actions';
+import {Link} from 'react-router-dom';
 
 class Register extends Component {
     
@@ -28,7 +29,8 @@ class Register extends Component {
     handleInputLastname = (event) => {
         this.setState({lastname: event.target.value})
     }
-    
+    //reset the form or display an error if not registered
+        //props come from redux store after getUsers returns the data 
     componentWillReceiveProps(nextProps) {
         if(nextProps.user.register === false) {
             let errMsg = nextProps.user.error.message;
@@ -45,9 +47,6 @@ class Register extends Component {
         }
         
     }
-
-    
-    
 
     submitForm = (event) => {
         event.preventDefault();
@@ -143,6 +142,8 @@ class Register extends Component {
                         </tbody>
                     </table>
                 </div>
+                <div className='container'><Link className="conf_link" to = {'/login'}>Login User</Link></div>
+                
             </div>
         )
     }
