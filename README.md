@@ -17,8 +17,8 @@
  https://book-shelf-slavi.herokuapp.com/admin/posts
  
  ###Screenshots
- 
-https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss1.png
-https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss2.png
-https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss3.png
-https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss3.png
+![Alt text](https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss1.png)
+![Alt text](https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss2.png)
+![Alt text](https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss3.png)
+![Alt text](https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss4.png)
+
