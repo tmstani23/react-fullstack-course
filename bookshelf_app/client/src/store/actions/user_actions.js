@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {USER_LOGIN, USER_AUTH, USER_LOGOUT, GET_USERS} from '../types';
+import {USER_LOGIN, USER_AUTH, USER_LOGOUT, GET_USERS, USER_REGISTER} from '../types';
 
 /////USER ACTIONS//////
 //post the user to the login backend api route and return the action type and data payload
@@ -45,4 +45,29 @@ export function getUsers() {
         type: GET_USERS,
         payload: request
     }
+}
+
+export function userRegister(user, userList) {
+    
+       
+    const request = axios.post('/api/users/register', user)
+        .then(response => {
+
+            let data = response.data;
+            let users = data.success === true ? [...userList, data.user] : userList
+            
+            let finalResponse = {
+                success: data.success,
+                error: data.error,
+                users
+            }
+            return finalResponse;
+    });
+
+    return {
+        type: USER_REGISTER,
+        payload: request
+    }
+
+
 }

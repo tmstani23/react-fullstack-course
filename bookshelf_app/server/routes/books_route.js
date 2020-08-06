@@ -18,8 +18,6 @@ router.route('/book')
 
         Book
             .find({_id: id})
-            // populate goes to another collection (users) and includes all that user's data in the response
-            .populate('ownerId', 'name lastname')
             .exec((err, doc) => {
                 if(err) return res.status(400).send(err);
                 res.send(...doc)
@@ -73,9 +71,9 @@ router.route('/all_books')
         let limit = req.query.limit ? parseInt(req.query.limit) : 0;
         let order = req.query.order? req.query.order : 0;
         //If an owner id object is passed use it else use an empty obj as default
-        let byOwner = req.query.owner ? {ownerId: req.query.owner} : {};
-
-        Book.find().skip(skip).sort({_id: order}).limit(limit).exec((err, doc) => {
+        let byOwner = req.query.ownerId ? {ownerId: req.query.ownerId} : {};
+        console.log(req.query.ownerId, 'ownerId');
+        Book.find(byOwner).skip(skip).sort({_id: order}).limit(limit).exec((err, doc) => {
             if(err) return res.status(400).send(err);
             res.send(doc);
         })

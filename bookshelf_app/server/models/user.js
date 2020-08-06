@@ -18,11 +18,12 @@ const userSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        maxlength: 100
+        maxlength: 100,
+        required: true,
     },
     lastname: {
         type: String,
-        maxlength: 100
+        maxlength: 100,
     },
     role: {
         type: Number,

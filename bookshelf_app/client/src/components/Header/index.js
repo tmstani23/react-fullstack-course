@@ -37,7 +37,7 @@ const Header = (props) => {
                 onHideNav={() => onHideNav(false)}
             />
             <Link to='/' className="logo">
-                The Book Shelf
+                The Bookshelf Review
             </Link>
         </header>
             

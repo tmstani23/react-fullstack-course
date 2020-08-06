@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Formik} from 'formik';
+import {Link} from 'react-router-dom';
 import * as Yup from 'yup';
 import {connect} from 'react-redux';
 import {loginUser} from '../../store/actions/user_actions';
@@ -36,7 +37,7 @@ class Login extends Component {
     componentDidUpdate() {
         if(this.state.success) {
             // redirect the user to admin route using browser history
-            this.props.history.push('/admin')
+            this.props.history.push('/home')
         }
     }
     
@@ -124,6 +125,7 @@ class Login extends Component {
 
                     )}
                 </Formik>
+                <Link className="conf_link" to = {'/register'}>Register User</Link>
             </div>
         )
     }

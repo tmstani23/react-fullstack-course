@@ -6,7 +6,7 @@ const config = {
     default: {
         SECRET: 'super_secret_password',
         DATABASE: 'mongodb://localhost:27017/bookshelf_db',
-        TEST_DB_URI: 'mongodb+srv://tmstani23:bluebird123@cluster0.1e3jn.mongodb.net/bookshelf_db?retryWrites=true&w=majority'
+        TEST_DB_URI: 'see_env_file'
     }
 }
 

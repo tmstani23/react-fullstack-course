@@ -24,8 +24,9 @@ export default function (ComposedClass, reload) {
                     else {
                         //reload prevents logged in users from going to wrong routes
                         if(reload === false) {
-                            this.props.history.push('/admin')
+                            this.props.history.push('/home')
                         }
+                        
                         
                     }
                         

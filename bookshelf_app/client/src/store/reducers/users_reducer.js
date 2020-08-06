@@ -1,4 +1,4 @@
-import {USER_LOGIN, USER_AUTH, USER_LOGOUT, GET_USERS} from '../types';
+import {USER_LOGIN, USER_AUTH, USER_LOGOUT, GET_USERS, USER_REGISTER} from '../types';
 
 //User reducers used to update redux store after action is dispatched
 export default (state={}, action) => {
@@ -29,8 +29,15 @@ export default (state={}, action) => {
         case GET_USERS:
             return {
                 ...state,
-                auth: action.payload.auth ? action.payload.auth : false,
                 users: action.payload ? action.payload : false
+            
+            }
+        case USER_REGISTER:
+            return {
+                ...state,
+                register: action.payload.success,
+                users: action.payload.users ? action.payload.users : false,
+                error: action.payload.error ? action.payload.error : ''
             
             }
         
