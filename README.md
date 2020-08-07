@@ -14,7 +14,7 @@
  - ES6, materials ui, formik, yup, for form validation and preconfigured tables
  
  ## Live Application
- https://book-shelf-slavi.herokuapp.com/admin/posts
+ https://book-shelf-slavi.herokuapp.com
  
  ### Screenshots
 ![Alt text](https://raw.githubusercontent.com/tmstani23/react-fullstack-course/master/bookshelf_app/screenshots/ss1.png)
